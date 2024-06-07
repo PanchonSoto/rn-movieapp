@@ -10,6 +10,9 @@ export const useMovies = () => {
 
     const [isLoading, setisLoading] = useState(true);
     const [nowPlaying, setnowPlaying] = useState<Movie[]>([]);
+    const [popular, setPopular] = useState<Movie[]>([]);
+    const [topTared, setTopRated] = useState<Movie[]>([]);
+    const [upcoming, setUpcoming] = useState<Movie[]>([]);
 
     useEffect(() => {
 
@@ -19,10 +22,33 @@ export const useMovies = () => {
 
     const initialLoad = async() => {
 
-        const nowPlayingMovies = await UseCases.moviesNowPlayingUseCase(movieDBfetcher)
+        const [nowPlayingMovies, upcomingMovies, topRatedMovies, popularMovies] = await Promise.all([
+            UseCases.moviesNowPlayingUseCase(movieDBfetcher),
+            UseCases.moviesUpcomingUseCase(movieDBfetcher),
+            UseCases.moviesTopRatedUseCase(movieDBfetcher),
+            UseCases.moviesPopularUseCase(movieDBfetcher)
+        ]);
+
+        setnowPlaying(nowPlayingMovies);
+        setUpcoming(upcomingMovies);
+        setTopRated(topRatedMovies);
+        setPopular(popularMovies);
+
+        setisLoading(false);
+        // console.log('now=> ',nowPlayingMovies[0].title);
+        // console.log('upcoming=> ', upcomingMovies[0].title);
+        // console.log('topRatedMovies=> ',topRatedMovies[0].title);
+        // console.log('popularMovies=> ', popularMovies[0].title);
+
 
     } 
     
 
-    return {};
+    return {
+        isLoading,
+        nowPlaying,
+        popular,
+        topTared,
+        upcoming,
+    };
 }
