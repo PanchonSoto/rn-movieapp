@@ -5,14 +5,14 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 import { useMovies } from '../../hooks/useMovies';
 import PosterCarousel from '../../components/movies/PosterCarousel';
-import HorizontalCarousel from '../../components/movies/HorizontalCarousel';
+import { HorizontalCarousel } from '../../components/movies/HorizontalCarousel';
 
 
 const HomeScreen = () => {
 
   const {top}=useSafeAreaInsets();
 
-  const {isLoading, nowPlaying} = useMovies();
+  const {isLoading, nowPlaying, popular, topTared, upcoming} = useMovies();
 
   if(isLoading) {
     return (<Text>Cargando...</Text>)
@@ -25,7 +25,13 @@ const HomeScreen = () => {
         <PosterCarousel movies={nowPlaying} />
 
         {/* pupular movies */}
-        <HorizontalCarousel />
+        <HorizontalCarousel movies={popular} title='Popular'/>
+
+        {/* Top rated */}
+        <HorizontalCarousel movies={topTared} title='Top rated'/>
+
+        {/* upcoming */}
+        <HorizontalCarousel movies={upcoming} title='Upcoming'/>
 
       </View>
     </ScrollView>
