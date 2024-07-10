@@ -5,6 +5,7 @@ import * as UseCases from '../../core/use-cases';
 import { movieDBfetcher } from "../../config/adapters/movieDB.adapter";
 
 
+let popularPageNumber = 1;
 
 export const useMovies = () => {
 
@@ -50,5 +51,14 @@ export const useMovies = () => {
         popular,
         topTared,
         upcoming,
+
+        //methods
+        popularNextPage: async() => {
+            popularPageNumber++;
+            const popularMovies = await UseCases.moviesPopularUseCase(movieDBfetcher, {
+                page: popularPageNumber,
+            });
+            setPopular(prev=> [...prev,...popularMovies])
+        }
     };
 }
