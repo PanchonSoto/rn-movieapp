@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 
-import * as MovieUseCase from '../../core/use-cases/movie';
+import * as MovieUseCase from '../../core/use-cases';
 import { movieDBfetcher } from "../../config/adapters/movieDB.adapter";
 
-import { MovieDBMovie } from "../../infrastructure/interfaces/movie-db-movie.res";
 import { FullMovie } from "../../core/models/movie.model";
 
 
@@ -18,11 +17,13 @@ export const useMovie = (movieId: number) => {
 
 
     const loadMovie = () => {
-
+        setIsLoading(true);
+        
         const movie = MovieUseCase.getMovieByIdUseCase(movieDBfetcher, movieId);
 
         movie.then(movie=>{
             setMovie(movie);
+            setIsLoading(false);
         }).catch(err=>console.log(`Error to get movie ${err}`));
     }
 

@@ -28,7 +28,7 @@ export class MovieMapper {
             backdrop: `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`,
             description: movie.overview,
             rating: movie.vote_average,
-            releaseDate: movie.release_date,
+            releaseDate: new Date(movie.release_date),
             genres: movie.genres.map(genre => genre.name), //mapeando 'Genre[]' a 'string[]',
             duration: movie.runtime,
             budget: movie.budget,

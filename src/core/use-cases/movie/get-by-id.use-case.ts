@@ -13,8 +13,9 @@ export const getMovieByIdUseCase = async (fetcher: HttpAdapter, movieId: number)
         
         const movie = await fetcher.get<MovieDBMovie>(`/${movieId}`);
 
-        return MovieMapper.fromMovieDbToEntity(movie);
+        const fullmovie = MovieMapper.fromMovieDbToEntity(movie);
 
+        return fullmovie;
 
     } catch (error) {
         throw new Error(`Cannot get movie with id:${movieId}`)
