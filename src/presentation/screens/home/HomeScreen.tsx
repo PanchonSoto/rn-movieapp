@@ -6,6 +6,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { useMovies } from '../../hooks/useMovies';
 import PosterCarousel from '../../components/movies/PosterCarousel';
 import { HorizontalCarousel } from '../../components/movies/HorizontalCarousel';
+import { FullScreenLoader } from '../../components/loaders/FullScreenLoader';
 
 
 const HomeScreen = () => {
@@ -15,7 +16,7 @@ const HomeScreen = () => {
   const {isLoading, nowPlaying, popular, topTared, upcoming, popularNextPage} = useMovies();
 
   if(isLoading) {
-    return (<Text>Cargando...</Text>)
+    return (<FullScreenLoader/>)
   }
 
   return (
